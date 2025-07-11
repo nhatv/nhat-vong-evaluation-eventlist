@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Event List</title>
     <script src="index.js" defer></script>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div class="outer-container">
+      <button class="new-event-btn">Add New Event</button>
+      <div class="event-container">
+        <div class="event-header">
+          <h2>Event</h2>
+          <h2>Start</h2>
+          <h2>End</h2>
+          <h2>Actions</h2>
+        </div>
+        <div class="event-list">
+          <div class="event-item">
+            <form class="new-event-form">
+              <input type="text" name="eventName" id="eventName" />
+              <input type="date" name="startDate" id="startDate" />
+              <input type="date" name="endDate" id="endDate" />
+              <button class="event-form__save-btn">Save</button>
+              <button class="event-form__delete-btn">Delete</button>
+            </form>
+          </div>
+          <div class="event-item">
+            <div class="event-item__text">Musical Event</div>
+            <div class="event-item__start">2023-01-20</div>
+            <div class="event-item__end">2023-01-22</div>
+            <button class="event-item__edit-btn">Edit</button>
+            <button class="event-item__delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

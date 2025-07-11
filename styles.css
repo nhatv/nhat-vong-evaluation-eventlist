@@ -1,0 +1,48 @@
+.outer-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.event-container {
+  text-align: center;
+  width: 75vw;
+  border: 1px solid black;
+}
+
+.event-list {
+  /* border: 3px solid red; */
+}
+
+.event-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.event-header > h2 {
+  flex: 1 1 auto;
+}
+
+.event-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.event-item > * {
+  flex: 1 1 auto;
+}
+
+.event-item > div {
+  padding: 0;
+  margin: 0;
+  /* change padding and margin later */
+}
+
+.event-form__action {
+  display: inline;
+}
