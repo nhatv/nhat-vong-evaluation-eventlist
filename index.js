@@ -35,6 +35,7 @@ const eventAPIs = (function () {
     getEvents,
     addEvent,
     deleteEvent,
+    editEvent,
   };
 })();
 
@@ -167,8 +168,9 @@ class EventController {
         const editId = eventItemElem.id;
         console.log(eventItemElem.classList,editId);
         
-        // // hide the original element then add new form?
-        // this.view.newEventForm = this.view.createEventForm();
+        // hide the original element then add new form?
+        this.view.newEventForm = this.view.createEventForm();
+        this.setUpSubmitEdit();
       }
     });
   }
