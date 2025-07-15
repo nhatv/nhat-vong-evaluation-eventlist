@@ -47,6 +47,8 @@ class EventView {
     this.eventEndDate = document.querySelector("#endDate");
     this.eventList = document.querySelector(".event-list");
     this.newEventButton = document.querySelector(".new-event-btn");
+    this.deleteExpiredEventsButton =
+      document.querySelector(".remove-events-btn");
   }
 
   renderEvents(events) {
@@ -60,11 +62,27 @@ class EventView {
   removeEventElem(id) {
     const eventToRemove = document.getElementById(id);
     eventToRemove.remove();
-    this.renderEvents;
   }
 
   renderNewEvent(newEvent) {
     this.eventList.appendChild(this.createEventElement(newEvent));
+  }
+
+  removeExpiredEvents(events) {
+    const currDate = new Date();
+    return events.map((e) => {
+      if (this.checkExpiredDate(currDate, e.endDate)) {
+        return e.id;
+      }
+      return;
+    });
+  }
+
+  checkExpiredDate(currDate, eventDate) {
+    const current = new Date(currDate);
+    const end = new Date(eventDate);
+
+    return current > end; // return true if expired
   }
 
   createEventElement(ev) {
@@ -152,6 +170,7 @@ class EventController {
     this.setUpNewEventForm();
     this.setUpDeleteEvent();
     this.setUpEditEvent();
+    this.setUpDeleteExpiredEvents();
     // this.setUpSubmitEvents();
   }
 
@@ -166,8 +185,8 @@ class EventController {
       if (elem.classList.contains("event-item__edit-btn")) {
         const eventItemElem = elem.parentElement;
         const editId = eventItemElem.id;
-        console.log(eventItemElem.classList,editId);
-        
+        console.log(eventItemElem.classList, editId);
+
         // hide the original element then add new form?
         this.view.newEventForm = this.view.createEventForm();
         this.setUpSubmitEdit();
@@ -256,6 +275,25 @@ class EventController {
       this.model.addEvent(newEvent);
       this.view.newEventForm.parentElement.remove();
       this.view.renderNewEvent(newEvent);
+    });
+  }
+
+  setUpDeleteExpiredEvents() {
+    this.view.deleteExpiredEventsButton.addEventListener("click", async (e) => {
+      // console.log(this.view.eventList);
+      // console.log(this.view.checkExpiredDate("2025-07-15", "2025-07-1"));
+      const events = await eventAPIs.getEvents();
+      // console.log(this.view.removeExpiredEvents(events));
+      for (const deleteId of this.view.removeExpiredEvents(events)) {
+        if (deleteId) {
+          await eventAPIs.deleteEvent(deleteId);
+          this.model.deleteEvent(deleteId);
+          this.view.removeEventElem(deleteId);
+        }
+        // console.log(deleteId);
+      }
+      // get ids from expired events
+      // remove them from database
     });
   }
 }
